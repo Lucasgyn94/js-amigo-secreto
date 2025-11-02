@@ -42,6 +42,11 @@ const embaralhar = (lista) => {
     }
 }
 const sortear = () => {
+    document.getElementById("lista-sorteio").innerHTML = "";
+    if(amigos.length < 4) {
+        alert('Adicione no mínimo 4 amigos para sortear!');
+        return;
+    }
     embaralhar(amigos);
     
     let sorteio = document.getElementById("lista-sorteio");
@@ -63,9 +68,21 @@ const reiniciar = () => {
 
 const adicionar = () => {
     let nomeAmigo = document.getElementById("nome-amigo");
+
+    if (nomeAmigo.value == "") {
+        alert("Informe um nome válido");
+        return;
+    }
+
+    if (amigos.includes(nomeAmigo.value)) {
+        alert("Nome de amigo já existente. Adicione um sobrenome!");
+        return;
+    }
+
     let listaAmigos = document.getElementById("lista-amigos");
     
     
+
     amigos.push(nomeAmigo.value);
 
     if (listaAmigos.textContent.length == "") {
