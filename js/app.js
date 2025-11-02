@@ -1,4 +1,36 @@
 let amigos = []
+
+const atualizarSorteio = () => {
+    let sorteio = document.getElementById("lista-sorteio");
+    sorteio.innerHTML = "";
+}
+
+const atualizarLista = () => {
+    let lista = document.getElementById("lista-amigos");
+    lista.innerHTML = "";
+
+    for (let i = 0; i < amigos.length; i++) {
+        // criando um elemento de paragrafo para cada amigo
+        let paragrafo = document.createElement("p");
+        paragrafo.textContent = amigos[i];
+
+        // adicionando evento de clique para excluir amigo
+        paragrafo.addEventListener("click",() => {
+            excluirAmigo(i);
+        });
+
+        // adicionando paragrafo a lista
+        lista.appendChild(paragrafo);
+    }
+}
+
+const excluirAmigo = (index) => {
+    amigos.splice(index, 1);
+    atualizarLista();
+    atualizarSorteio();
+
+}
+
 const embaralhar = (lista) => {
     let indiceAtual = lista.length;
 
@@ -28,6 +60,7 @@ const reiniciar = () => {
     document.getElementById("lista-sorteio").innerHTML = "";
     amigos = [];
 }
+
 const adicionar = () => {
     let nomeAmigo = document.getElementById("nome-amigo");
     let listaAmigos = document.getElementById("lista-amigos");
@@ -36,11 +69,16 @@ const adicionar = () => {
     amigos.push(nomeAmigo.value);
 
     if (listaAmigos.textContent.length == "") {
-        listaAmigos.innerText += nomeAmigo.value;
+        listaAmigos.textContent = nomeAmigo.value;
     } else {
-        listaAmigos.innerText += `, ${nomeAmigo.value}`;
+        listaAmigos.textContent = `${listaAmigos.textContent}, ${nomeAmigo.value}`;
     }
+    
     nomeAmigo.value = "";
+    
+    atualizarLista();
+    atualizarSorteio();
+
 }
 
 // nome-amigo
